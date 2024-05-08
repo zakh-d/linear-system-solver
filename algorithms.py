@@ -17,7 +17,7 @@ def jacobi_method(A: Matrix, b):
 
     res = vector_difference(A * x, b)
 
-    iterations = 0
+    iterations = 1
     error = [math.sqrt(sum(res[i] ** 2 for i in range(A.dims[0])))]
 
     while error[-1] > 1e-6 and iterations < MAX_ITERATIONS:
@@ -38,13 +38,14 @@ def gauss_seidel_method(A: Matrix, b):
 
     res = vector_difference(A * x, b)
 
-    iterations = 0
+    iterations = 1
     error = [math.sqrt(sum(res[i] ** 2 for i in range(A.dims[0])))]
     while error[-1] > 1e-6 and iterations < MAX_ITERATIONS:
         iterations += 1
         for i in range(A.dims[0]):
-            x[i] = (b[i] - sum(A[i, j] * x[j] for j in range(i)) - sum(A[i, j] * x[j] for j in range(i+1, A.dims[0]))) / A[i, i]
-        
+            x[i] = (b[i] - sum(A[i, j] * x[j] for j in range(i)) - sum(A[i, j] * x[j] for j in range(i+1, A.dims[0]))
+                    ) / A[i, i]
+
         res = vector_difference(A * x, b)
         error.append(math.sqrt(sum(res[i] ** 2 for i in range(A.dims[0]))))
 
